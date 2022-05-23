@@ -1,0 +1,18 @@
+.MuiTablePagination-displayedRows {
+    margin: 0;
+}
+
+.edit-icon {
+    color: #cc9009;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.resolve-icon {
+    color: #1acc0c;
+    cursor: pointer;
+    margin: 0 10px;
+}
+.head{
+    box-shadow:1px 1px 9px black
+}

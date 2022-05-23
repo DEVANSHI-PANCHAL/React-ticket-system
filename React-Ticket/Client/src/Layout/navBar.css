@@ -1,0 +1,20 @@
+p.navbar-brand{
+    margin-left: 2rem;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 35px;
+    font-family: "Helvetica Neue",Helvetica,Arial;
+  
+}
+nav{
+    box-shadow:2px 3px 15px  rgb(5, 5, 5);
+    height: 80px
+}
+span.mr-3{
+    font-size:20px;
+
+
+}
+a.nav-link{
+    font-size:20px;
+}
