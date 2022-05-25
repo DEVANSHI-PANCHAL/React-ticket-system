@@ -61,7 +61,7 @@ const AddTicketDialog = ({isOpen, toggle, reloadData}) => {
             ticket_description: ticketDescription
         }
         addTicket(data).then(response => {
-          
+            setTicketDescription('')
             toggle();
             reloadData();
         })
@@ -85,7 +85,7 @@ const AddTicketDialog = ({isOpen, toggle, reloadData}) => {
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={handleAddTicket}>
+                    <Button  autoFocus disabled={ticketDescription === ''} onClick={handleAddTicket}>
                         Save
                     </Button>
                 </DialogActions>

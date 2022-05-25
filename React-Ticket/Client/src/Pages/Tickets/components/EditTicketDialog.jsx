@@ -63,6 +63,7 @@ const EditTicketDialog = ({data, isOpen, toggle, reloadData}) => {
             ticket_description: ticketDescription
         }
         updateTicket(req, data._id).then(response => {
+            setTicketDescription('')
          
             toggle();
             reloadData();
@@ -93,7 +94,7 @@ const EditTicketDialog = ({data, isOpen, toggle, reloadData}) => {
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={handleAddTicket}>
+                    <Button disabled={ticketDescription === '' } autoFocus onClick={handleAddTicket}>
                         Save
                     </Button>
                 </DialogActions>

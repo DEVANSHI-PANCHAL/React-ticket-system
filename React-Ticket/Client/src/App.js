@@ -8,6 +8,7 @@ import NavBar from "./Layout/NavBar";
 
 function App() {
     const auth = useSelector((state) => state.auth);
+    console.log()
    
     const token = localStorage.getItem('token');
     return (
@@ -15,18 +16,23 @@ function App() {
         <BrowserRouter>
             <Switch>
                 {(auth.user || token) ?
+                
                     <>
                       
                         <NavBar user={auth.user}/>
                         <div className={"p-4"}>
                             <Route path={"/tickets"} component={Tickets}/>
+                            <Route exact={true} path={"/sign-in"} render={() => <Redirect to={"/tickets"} />} />
+                            <Route exact={true} path={"/sign-up"} render={() => <Redirect to={"/tickets"} />} />
                             <Route exact={true} path={"/"} render={() => <Redirect to={"/tickets"} />} />
                         </div>
                     </>
                     :
                     <>
+                        
                         <Route path={"/sign-in"} component={Login}/>
                         <Route path={"/sign-up"} component={Register}/>
+                        <Route exact={true} path={"/tickets"}  render={() => <Redirect to={"/sign-in"} />} />
                         <Route exact={true} path={"/"}  render={() => <Redirect to={"/sign-in"} />} />
                     </>
                 }

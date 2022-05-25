@@ -4,7 +4,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 async function registerUser(data) {
     console.log('api')
-    return await axios.post(API_URL + '/users/register', data)
+    return axios.post(API_URL + '/users/register', data)
 }
 
 async function signin(data) {
