@@ -92,7 +92,7 @@ const Tickets = () => {
     const [editData, setEditData] = React.useState();
     const [searchKeyword, setSearchKeyword] = useState("");
     const creator =JSON.parse(localStorage.getItem('user'))
-    // console.log(creator.id)
+
     const resolve = (id) => {
       
         resolveTicket(id).then (response => {
@@ -106,7 +106,7 @@ const Tickets = () => {
 
     const getAllTickets = (pageIndex = page, pageSize = rowsPerPage, sortType = orderBy, sortDirection = order, searchKeyword = searchKeyword) => {
         getTickets(pageIndex, pageSize, sortType, sortDirection, searchKeyword).then(response => {
-            console.log("TICKETS :: ", response)
+          
             setRows(response.data.tickets);
             setTotal(response.data.total);
         })
@@ -116,6 +116,7 @@ const Tickets = () => {
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
     const handleChangePage = (event, newPage) => {
+        console.log(newPage)
         setPage(newPage);
         getAllTickets(newPage, rowsPerPage, orderBy, order, searchKeyword)
     };
@@ -218,7 +219,7 @@ const Tickets = () => {
                                                 <TableCell>Action</TableCell>
                                             </TableRow>
                                         </TableHead>
-                                        {console.log("asdasd", rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage))}
+                                        
                                         <TableBody>
                                             {rows.map((row,index) => (
                                                 

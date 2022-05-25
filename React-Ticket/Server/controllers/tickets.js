@@ -5,64 +5,65 @@ import Ticket from "../models/tickets.js";
 import moment from "moment";
 
 export const addTicket = async (req, res) => {
-  const {ticket_id, ticket_description} = req.body;
-  console.log(req.body)
-  console.log("User", req.user)
+  const {  ticket_description } = req.body;
+
   const newTicket = new Ticket({
     // ticket_id : ticket_id,
     ticket_description: ticket_description,
     createdAt: new Date(),
     updatedAt: new Date(),
-    createdBy: {firstName: req.user.firstName, lastName: req.user.lastName, email: req.user.email, id: req.user.id}
+    createdBy: {
+      firstName: req.user.firstName,
+      lastName: req.user.lastName,
+      email: req.user.email,
+      id: req.user.id,
+    },
   });
   try {
     await newTicket.save();
     res.status(201).json(newTicket);
   } catch (error) {
-    console.log(error)
     res.status(409).json({ message: error.message });
   }
 };
 
 export const getTickets = async (req, res) => {
-  console.log("req", req.query)
-  const {pageSize, pageIndex, sortType, sortDirection, searchKeyword} = req?.query;
+  const { pageSize, pageIndex, sortType, sortDirection, searchKeyword } =
+    req?.query;
+    console.log(req?.query)
   const sortObject = {};
   const stype = sortType;
   const sdir = sortDirection;
   sortObject[stype] = sdir;
-  console.log('sortObject = ', sortObject);
-  const regex = new RegExp(searchKeyword, 'i');
+
+  const regex = new RegExp(searchKeyword, "i");
 
   try {
-    const ticket = await Ticket
-      .find({
-        $and: [
-          {
-            $or: [{ ticket_id: regex }, { ticket_description: regex }],
-          }
-        ],
-      })
+    const ticket = await Ticket.find({
+      $and: [
+        {
+          $or: [{ ticket_id: regex }, { ticket_description: regex }],
+        },
+      ],
+    })
       .skip(pageIndex * pageSize)
       .limit(pageSize)
       .sort(
-        sortObject, //descending order sort
+        sortObject //descending order sort
       )
       .exec();
 
     const total = (
-      await Ticket
-        .find({
-          $and: [
-            {
-              $or: [{ ticket_id: regex }, { ticket_description: regex }],
-            },
-          ],
-        })
-        .exec()
+      await Ticket.find({
+        $and: [
+          {
+            $or: [{ ticket_id: regex }, { ticket_description: regex }],
+          },
+        ],
+      }).exec()
     ).length;
 
-    res.status(200).json({tickets: ticket, total: total});
+    res.status(200).json({ tickets: ticket, total: total });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -71,8 +72,7 @@ export const getTickets = async (req, res) => {
 export const updateTicket = async (req, res) => {
   const ticket = req.body;
   const { id } = req.params;
-  console.log(req.body)
-  console.log(id)
+
   const { ticket_description } = req.body;
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No ticket with id: ${id}`);
@@ -88,23 +88,25 @@ export const updateTicket = async (req, res) => {
 };
 
 export const resolveTicket = async (req, res) => {
-
-  console.log(req.params);
   const { id } = req.params;
-  console.log(id);
+
   const ticket = await Ticket.findById(id);
-  console.log(ticket);
-  if(!ticket) {
+
+  if (!ticket) {
     return res.status(404).send(`No ticket with id: ${id}`);
   }
 
-  const newticket = {
-    ...ticket,
-    resolved: true
-  }
-  const resolvedticket = await Ticket.findByIdAndUpdate(id, {resolved:true}, { new: true });
-  console.log(resolvedticket)
-  res.status(200).json({message: "Resolved"});
+  // const newticket = {
+  //   ...ticket,
+  //   resolved: true,
+  // };
+  const resolvedticket = await Ticket.findByIdAndUpdate(
+    id,
+    { resolved: true },
+    { new: true }
+  );
+ 
+  res.status(200).json({ message: "Resolved" });
 };
 
 export const getTicketsByName = async (req, res) => {

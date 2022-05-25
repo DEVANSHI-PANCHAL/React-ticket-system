@@ -8,7 +8,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
+
 import TextField from "@mui/material/TextField/TextField";
 import {useState} from "react";
 import "./style.css"
@@ -47,7 +47,7 @@ BootstrapDialogTitle.propTypes = {
 const AddTicketDialog = ({isOpen, toggle, reloadData}) => {
     const[userold,setuserold] = useState(JSON.parse(localStorage.getItem('user')))
     const auth = useSelector((state) => state.auth);
-    // console.log(userold?.email)
+  
     const [ticketNo, setTicketNo] = useState({
         email:userold?.email
     });
@@ -61,7 +61,7 @@ const AddTicketDialog = ({isOpen, toggle, reloadData}) => {
             ticket_description: ticketDescription
         }
         addTicket(data).then(response => {
-            console.log("RES :: ", response)
+          
             toggle();
             reloadData();
         })

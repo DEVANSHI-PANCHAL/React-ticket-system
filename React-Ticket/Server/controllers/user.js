@@ -10,7 +10,7 @@ const secret = process.env.TOKEN_SECRET;
 export const signin = async (req, res) => {
   
   const { email, password } = req.body;
-  console.log(req.body);
+
 
   try {
     const oldUser = await UserModal.findOne({ email });
@@ -23,7 +23,7 @@ export const signin = async (req, res) => {
    
     
     const token = jwt.sign({ email: oldUser.email, id: oldUser._id, firstName: oldUser.firstName, lastName: oldUser.lastName }, secret, { expiresIn: "1h" });
-    console.log(token,oldUser)
+   
     res.status(200).json({ result: {firstName: oldUser.firstName, lastName: oldUser.lastName, email: oldUser.email,id:oldUser._id}, token });
 
   } catch (err) {
@@ -49,7 +49,7 @@ export const signup = async (req, res) => {
     
     res.status(201).json({ result, token });
   } catch (error) {
-    console.log(error)
+    
     res.status(500).json({ message: "Something went wrong" });
   }
 };

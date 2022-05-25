@@ -8,7 +8,7 @@ import "./navBar.css"
 const NavBar = ({user}) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    console.log(user)
+  
     const logout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
@@ -18,7 +18,7 @@ const NavBar = ({user}) => {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            {console.log("User : ", user)}
+           
             <p className="navbar-brand">Ticket App</p>
 
             <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">

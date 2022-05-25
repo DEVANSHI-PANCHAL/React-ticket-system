@@ -20,7 +20,7 @@ const Login = () => {
 
         signin(data).then(response => {
             dispatch(setAuth({user: response.data.result, token: response.data.token}));
-            console.log(response.data)
+
             localStorage.setItem("token", response.data.token);
            localStorage.setItem("user",  JSON.stringify(response.data.result));
             history.push('/tickets')

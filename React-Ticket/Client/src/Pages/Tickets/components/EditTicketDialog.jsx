@@ -55,20 +55,22 @@ const EditTicketDialog = ({data, isOpen, toggle, reloadData}) => {
     const [ticketDescription, setTicketDescription] = useState("");
     
     const handleAddTicket = () => {
+        
         const req = {
+           
             ...data,
        
             ticket_description: ticketDescription
         }
         updateTicket(req, data._id).then(response => {
-            console.log("RES :: ", response)
+         
             toggle();
             reloadData();
         })
     };
 
     useEffect(() => {
-        console.log("Data :: ", data)
+       
         setTicketNo(data?.ticket_id)
         setTicketDescription(data?.ticket_description)
     }, [data]);

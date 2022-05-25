@@ -21,7 +21,7 @@ const Register = () => {
 
         // Sign Up API CALL
         registerUser(data).then(response => {
-            console.log("SIGN UP ", response)
+          
             history.push("/sign-in");
         })
         
